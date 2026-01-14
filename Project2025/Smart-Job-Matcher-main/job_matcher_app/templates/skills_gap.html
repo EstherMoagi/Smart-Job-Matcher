@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skills Gap Analysis</title>
+</head>
+<body>
+
+<h2>Skills Gap Analyzer</h2>
+
+<form method="POST">
+
+    <label>Select Job:</label>
+    <select name="job_title" required>
+        {% for job in jobs %}
+            <option value="{{ job.title }}">{{ job.title }}</option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <textarea name="cv_text" rows="10" cols="50"
+        placeholder="Paste your CV text here..." required></textarea>
+    <br><br>
+    <button type="submit">Analyze Skills</button>
+</form>
+
+{% if score %}
+<hr>
+<h3>Results</h3>
+<p><b>Required Skills:</b> {{ required_skills }}</p>
+<p><b>Your Skills:</b> {{ user_skills }}</p>
+<p><b>Missing Skills:</b> {{ missing_skills }}</p>
+<h2>Match Score: {{ score }}%</h2>
+
+<img src="data:image/png;base64,{{ chart }}" />
+
+{% endif %}
+
+</body>
+</html>

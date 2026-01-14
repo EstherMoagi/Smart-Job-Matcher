@@ -1,0 +1,10 @@
+[
+  {
+    "title": "Software Developer",
+    "required_skills": "python,flask,sql"
+  },
+  {
+    "title": "Data Analyst",
+    "required_skills": "excel,pandas,statistics"
+  }
+]

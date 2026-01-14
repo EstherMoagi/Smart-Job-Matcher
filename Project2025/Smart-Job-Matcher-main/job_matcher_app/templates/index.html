@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Job Matcher - Enhanced Matching</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4e73df;
+            --secondary: #6f42c1;
+            --success: #1cc88a;
+            --info: #36b9cc;
+            --warning: #f6c23e;
+            --danger: #e74a3b;
+            --light: #f8f9fc;
+            --dark: #5a5c69;
+        }
+        
+        body {
+            background-color: #f8f9fc;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.65rem;
+        }
+        
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            font-weight: 700;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .stats-card {
+            border-left: 4px solid var(--primary);
+        }
+        
+        .job-match-card {
+            transition: transform 0.3s;
+        }
+        
+        .job-match-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-present {
+            color: var(--success);
+        }
+        
+        .skill-missing {
+            color: var(--danger);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        
+        .match-details {
+            background-color: #f8f9fc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .troubleshooting-tips {
+            border-left: 4px solid var(--warning);
+            padding-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary shadow">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-code-branch me-2"></i>SmartJobMatcher
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-briefcase me-1"></i> Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-chart-bar me-1"></i> Analytics</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i> Demo User
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <!-- Hero Section -->
+        <div class="hero-section text-center">
+            <h1 class="display-4 fw-bold"> Job Matching</h1>
+            
+        </div>
+
+        <div class="row">
+            <!-- Left Sidebar - User Stats -->
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow h-100">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold"><i class="fas fa-user me-1"></i> Your Profile</h6>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="https://ui-avatars.com/api/?name=Demo+User&size=120&background=4e73df&color=fff&bold=true" 
+                             class="rounded-circle mb-3" alt="Profile">
+                        <h5>Demo User</h5>
+                        <p class="text-muted">IT Student</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <div class="stats-card p-3">
+                                    <h6 class="text-primary">Jobs Matched</h6>
+                                    <h4 class="fw-bold">15</h4>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stats-card p-3">
+                                    <h6 class="text-primary">Match Rate</h6>
+                                    <h4 class="fw-bold">82%</h4>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h6>Top Skills</h6>
+                            <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                <span class="badge bg-primary">Python</span>
+                                <span class="badge bg-primary">Microsoft Office</span>
+                                <span class="badge bg-primary">Communication</span>
+                                <span class="badge bg-primary">Teamwork</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Troubleshooting Tips -->
+                <div class="card shadow mt-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold"><i class="fas fa-lightbulb me-1"></i> Matching Tips</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="troubleshooting-tips">
+                            <h6>Improve your matches:</h6>
+                            <ul class="ps-3">
+                                <li>Include specific skills in your CV</li>
+                                <li>Use standard job titles</li>
+                                <li>Add a skills section</li>
+                                <li>Include projects and experience</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-lg-8">
+                <!-- Upload CV Card -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold"><i class="fas fa-upload me-1"></i> Upload Your CV</h6>
+                    </div>
+                    <div class="card-body">
+                        <form id="cvUploadForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Job Keyword</label>
+                                    <input type="text" class="form-control" id="keyword" placeholder="e.g. Python, Web Developer">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Preferred Location</label>
+                                    <input type="text" class="form-control" id="location" placeholder="e.g. Johannesburg, Remote">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Upload CV (PDF, DOCX, TXT)</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" id="cvFile" accept=".pdf,.docx,.txt">
+                                    <button class="btn btn-primary" type="button" id="analyzeBtn">
+                                        <i class="fas fa-search me-1"></i> Analyze CV
+                                    </button>
+                                </div>
+                                <div class="form-text">Max file size: 5MB</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- CV Analysis Results -->
+                <div class="card shadow mb-4 d-none" id="analysisResult">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold"><i class="fas fa-chart-pie me-1"></i> CV Analysis Results</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h6>Extracted Skills</h6>
+                                <div id="extractedSkills" class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-success">Python</span>
+                                    <span class="badge bg-success">Microsoft Office</span>
+                                    <span class="badge bg-success">Communication</span>
+                                    <span class="badge bg-success">Teamwork</span>
+                                    <span class="badge bg-success">Problem Solving</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Skill Confidence</h6>
+                                <div class="skill-item mb-2">
+                                    <div>Technical Skills</div>
+                                    <div class="progress skill-bar">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%"></div>
+                                    </div>
+                                    <div class="skill-label">
+                                        <span>Moderate</span>
+                                        <span>75%</span>
+                                    </div>
+                                </div>
+                                <div class="skill-item mb-2">
+                                    <div>Soft Skills</div>
+                                    <div class="progress skill-bar">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 85%"></div>
+                                    </div>
+                                    <div class="skill-label">
+                                        <span>Strong</span>
+                                        <span>85%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" id="matchJobsBtn">
+                            <i class="fas fa-briefcase me-1"></i> Find Matching Jobs
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Matching Results -->
+                <div class="card shadow d-none" id="matchingResults">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold"><i class="fas fa-briefcase me-1"></i> Matched Jobs</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i> Found <strong>5</strong> jobs matching your CV!
+                        </div>
+
+                        <div class="row">
+                            <!-- Job Card 1 -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card job-match-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="card-title">Junior Python Developer</h5>
+                                            <span class="badge bg-success">92% Match</span>
+                                        </div>
+                                        <h6 class="card-subtitle mb-2 text-muted">Cape Town</h6>
+                                        <p class="card-text">Tech Solutions Inc.</p>
+                                        <div class="mb-2">
+                                            <span class="badge bg-primary">Python</span>
+                                            <span class="badge bg-primary">Flask</span>
+                                            <span class="badge bg-primary">SQL</span>
+                                        </div>
+                                        <div class="match-details">
+                                            <small><strong>Why it's a good match:</strong> Your Python experience and problem-solving skills align perfectly with this role.</small>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-transparent">
+                                        <button class="btn btn-sm btn-primary">Apply Now</button>
+                                        <button class="btn btn-sm btn-outline-secondary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Job Card 2 -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card job-match-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="card-title">IT Support Technician</h5>
+                                            <span class="badge bg-success">88% Match</span>
+                                        </div>
+                                        <h6 class="card-subtitle mb-2 text-muted">Pretoria</h6>
+                                        <p class="card-text">IT Helpdesk Solutions</p>
+                                        <div class="mb-2">
+                                            <span class="badge bg-primary">Troubleshooting</span>
+                                            <span class="badge bg-primary">Windows</span>
+                                            <span class="badge bg-primary">Communication</span>
+                                        </div>
+                                        <div class="match-details">
+                                            <small><strong>Why it's a good match:</strong> Your communication skills and technical aptitude make you a strong candidate.</small>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-transparent">
+                                        <button class="btn btn-sm btn-primary">Apply Now</button>
+                                        <button class="btn btn-sm btn-outline-secondary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Job Card 3 -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card job-match-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="card-title">Data Analyst Intern</h5>
+                                            <span class="badge bg-info">78% Match</span>
+                                        </div>
+                                        <h6 class="card-subtitle mb-2 text-muted">Johannesburg</h6>
+                                        <p class="card-text">Data Insights Ltd.</p>
+                                        <div class="mb-2">
+                                            <span class="badge bg-primary">Excel</span>
+                                            <span class="badge bg-primary">Python</span>
+                                            <span class="badge bg-primary">Analysis</span>
+                                        </div>
+                                        <div class="match-details">
+                                            <small><strong>Why it's a good match:</strong> Your analytical skills and Python knowledge are relevant for this position.</small>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-transparent">
+                                        <button class="btn btn-sm btn-primary">Apply Now</button>
+                                        <button class="btn btn-sm btn-outline-secondary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Job Card 4 -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card job-match-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="card-title">Project Coordinator</h5>
+                                            <span class="badge bg-info">72% Match</span>
+                                        </div>
+                                        <h6 class="card-subtitle mb-2 text-muted">Durban</h6>
+                                        <p class="card-text">Business Solutions Group</p>
+                                        <div class="mb-2">
+                                            <span class="badge bg-primary">Organization</span>
+                                            <span class="badge bg-primary">Communication</span>
+                                            <span class="badge bg-primary">Microsoft Office</span>
+                                        </div>
+                                        <div class="match-details">
+                                            <small><strong>Why it's a good match:</strong> Your strong communication and organizational skills are ideal for this role.</small>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-transparent">
+                                        <button class="btn btn-sm btn-primary">Apply Now</button>
+                                        <button class="btn btn-sm btn-outline-secondary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-1"></i> Send Email Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-5 py-4 shadow">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-muted">© 2023 SmartJobMatcher. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#" class="text-decoration-none text-muted me-3">Privacy Policy</a>
+                    <a href="#" class="text-decoration-none text-muted">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const matchJobsBtn = document.getElementById('matchJobsBtn');
+            const analysisResult = document.getElementById('analysisResult');
+            const matchingResults = document.getElementById('matchingResults');
+            
+            // Simulate CV analysis
+            analyzeBtn.addEventListener('click', function() {
+                const fileInput = document.getElementById('cvFile');
+                if (!fileInput.files.length) {
+                    alert('Please select a CV file first.');
+                    return;
+                }
+                
+                // Show loading state
+                analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Analyzing...';
+                analyzeBtn.disabled = true;
+                
+                // Simulate analysis process
+                setTimeout(function() {
+                    // Show analysis results
+                    analysisResult.classList.remove('d-none');
+                    
+                    // Reset button
+                    analyzeBtn.innerHTML = '<i class="fas fa-search me-1"></i> Analyze CV';
+                    analyzeBtn.disabled = false;
+                    
+                    // Scroll to results
+                    analysisResult.scrollIntoView({ behavior: 'smooth' });
+                }, 2000);
+            });
+            
+            // Simulate job matching
+            matchJobsBtn.addEventListener('click', function() {
+                // Show loading state
+                matchJobsBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Finding matches...';
+                matchJobsBtn.disabled = true;
+                
+                // Simulate matching process
+                setTimeout(function() {
+                    // Show matching results
+                    matchingResults.classList.remove('d-none');
+                    
+                    // Reset button
+                    matchJobsBtn.innerHTML = '<i class="fas fa-briefcase me-1"></i> Find Matching Jobs';
+                    matchJobsBtn.disabled = false;
+                    
+                    // Scroll to results
+                    matchingResults.scrollIntoView({ behavior: 'smooth' });
+                }, 1500);
+            });
+            
+            // Animate page elements
+            const elements = document.querySelectorAll('.card, .hero-section');
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+            });
+            
+            setTimeout(() => {
+                elements.forEach((element, index) => {
+                    setTimeout(() => {
+                        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 300);
+        });
+    </script>
+</body>
+</html>
