@@ -20,7 +20,7 @@ inputs with relevant job roles  using cv the user uploaded.
 ## Live Demo
 
 
-## 📂 Installation & Setup
+## Installation & Setup
 1. Clone the repository:
    ```bash
    git clone https://github.com/EstherMoagi/Smart-Job-Matcher.git
