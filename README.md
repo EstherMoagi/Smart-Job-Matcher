@@ -17,9 +17,6 @@ inputs with relevant job roles  using cv the user uploaded.
 - HTML
 - CSS
 
-## Live Demo
-
-
 ## Installation & Setup
 1. Clone the repository:
    ```bash
