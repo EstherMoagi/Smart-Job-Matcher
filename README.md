@@ -18,14 +18,22 @@ inputs with relevant job roles  using cv the user uploaded.
 - CSS
 
 ## Live Demo
-(Add live link here if deployed)
+
 
 ## 📂 Installation & Setup
 1. Clone the repository:
    ```bash
    git clone https://github.com/EstherMoagi/Smart-Job-Matcher.git
+   
+2. Navigate to the project directory
 
-# To open it
+3. Install dependencies:
+
+4. pip install flask
+
+5. Run the application: python app.py
+
+# ( Alternative ) To open it
 1.Download and Unzip the project 
 
 2.Open terminal
