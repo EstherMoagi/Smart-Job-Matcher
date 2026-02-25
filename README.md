@@ -6,6 +6,7 @@ opportunities based on their skills and preferences. The system matches user
 inputs with relevant job roles  using cv the user uploaded.
 
 ## Features
+- User Authentication
 - User-friendly web interface
 - Job matching based on skills
 - Backend logic implemented with Flask
